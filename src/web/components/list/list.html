@@ -1,0 +1,33 @@
+<div class="jscontent">
+  <h4>list component</h4>
+  <p>
+    data:[[info]]
+  </p>
+  <strong>timing</strong>
+  <div id="c-list">
+    <button @click.stop="reportWebPermanceHandler">上传数据</button>
+    <ul>
+      <li v-for="item of plist">{{item}}</li>
+    </ul>
+  </div>
+  <script>
+    let vm = new Vue({
+      el: '#c-list',
+      data: {
+        plist: []
+      },
+      methods: {
+        reportWebPermanceHandler() {
+          console.log(this.plist);
+        }
+      },
+      mounted() {
+        const timing = window.performance.timing;
+        let a = [];
+        for (item in timing) {
+          if (typeof timing[item] != 'function') this.plist.push(item);
+        }
+      }
+    });
+  </script>
+</div>

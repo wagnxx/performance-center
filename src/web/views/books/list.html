@@ -1,0 +1,30 @@
+{% extends '../layouts/layout.html' %} 
+{% block title %} index {% endblock %} 
+
+{% block head %}
+<!--injectcss-->
+{% endblock  %}
+
+
+{% block content %}
+<div>
+  <h1>list page</h1>
+  {% include "@components/list/list.html" %}
+
+</div>
+{% endblock %}
+
+
+
+
+{% block custom %}
+<div class="custom-block">
+    <em>      custom block </em>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<!--injectjs-->
+{% endblock  %}
