@@ -5,11 +5,14 @@
     <title>{% block title %}{% endblock %}</title>
     {% block head %}{% endblock %}
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <link rel="stylesheet" href="/css/index.css">
     <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
     "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.0/vue.min.js"></script>
   </head>
   <body>
+
+    {% include '../../components/banner/index.html' %}
 
     <div id="app">
         {% block content %} {% endblock %}
@@ -28,5 +31,11 @@
       quicklink();
     </script>
     {% block scripts %}{% endblock %}
+
+
+    <script>
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+      ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script> 
   </body>
 </html>

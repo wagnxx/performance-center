@@ -1,0 +1,21 @@
+:root{
+    --gBg-color:yellowGreen;
+    --gFontSize:14px;
+    --gColor:#333;
+    --mainColor: yellowGreen;
+    --booksUnit: 42px;
+    --listWidth: 50px;
+
+
+    --centered:{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    };
+
+    
+}
+
+@custom-media --viewport-medium (width<=200px);
+
+@custom-selector: --heading h1,h2,h3,h4,h5,h6;

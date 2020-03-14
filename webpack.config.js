@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlAfterPlugin = require('./config/htmlAfterPlugin');
 const glob = require('glob');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const { join } = require('path');
 let _entry = {};
 let _plugins = [];
@@ -33,22 +34,56 @@ const webpackConfig = {
     publicPath: '/',
     filename: 'scripts/[name].bundle.js'
   },
+  module:{
+    rules:[
+      {
+        test:/\.?js$/,
+        exclude:/(node_modules|bower_components)/,
+        use:{
+          loader:'babel-loader',
+          options:{
+            presets:[
+              '@babel/preset-env'
+            ]
+          }
+        }
+      },
+      {
+        test:/\.css$/,
+        use:[
+          // 'style-loader',
+          {
+            loader:MiniCssExtractPlugin.loader
+          },
+          {
+            loader:'css-loader',
+            options:{
+              importLoaders:1
+            }
+          },
+          'postcss-loader'
+        ]
+      }
+    ]
+  },
   plugins: [
     ..._plugins,
+    new HtmlAfterPlugin({
+      ishack: true
+    }),
+    new MiniCssExtractPlugin({
+      filename:'styles/[name].css',
+      chunkFilename:'styles/[id].css'
+    }),
     new CopyPlugin([
       {
         from: join(__dirname, 'src/web/views/layouts/'),
         to: '../views/layouts/'
       },
-      { from: join(__dirname, 'src/web/components/'), to: '../components/' }
+      { from: join(__dirname, 'src/web/components/'), to: '../components/' },
+      { from: join(__dirname, 'src/web/css/'), to: './css/' },
     ]),
-    // new HtmlWebpackPlugin({
-    //   template: 'index.html',
-    //   filename: 'target.html'
-    // }),
-    new HtmlAfterPlugin({
-      ishack: true
-    }),
+ 
     // new webpack.LoaderOptionsPlugin({
     //   // test: /\.xxx$/, // may apply this only for some modules
     //   options: {

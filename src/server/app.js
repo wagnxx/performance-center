@@ -5,6 +5,8 @@ import co from 'co';
 import render from 'koa-swig';
 import serve from 'koa-static'
 
+
+
 import config from './config';
 import format from './middlewares/format';
 
@@ -14,7 +16,13 @@ container.loadModules([__dirname+'/models/*.js'],{
     Lifetime:Lifetime.SCOPED
 });
 const app = new Koa();
+
+
 app.use(serve(config.assetsDir));
+app.use(serve(config.componentsDir));
+
+
+ 
 app.context.format=format;
 app.context.render = co.wrap(
     render({
@@ -29,6 +37,12 @@ app.context.render = co.wrap(
 require('./middlewares/errorHandler').default.error(app);
 app.use(scopePerRequest(container));
 app.use(loadControllers(__dirname+'/controllers/*.js'));
+app.use(async (ctx,next)=>{
+  if(ctx.request.url.startsWith('/components/')){
+    ctx.redirect(ctx.request.url.replace('/components/','/'));
+  }
+  next();
+})
 app.listen(config.port,()=>{
     console.log(`server is running over ${config.port} port`);
 });

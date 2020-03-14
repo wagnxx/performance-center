@@ -1,3 +1,22 @@
-.t-red{
-    color: #f00;
+
+.list-component{
+ 
+    color: var(--gColor);
+    font-size: var(--gFont-size);
+    
+}
+.centered{
+    @apply --centered;
+}
+
+@media (--viewport-medium){
+    .list-component{
+        font-size:30px;
+    }
+}
+
+/* selector */
+:--heading{
+    margin-top: 0;
+    margin-left: 30px;
 }

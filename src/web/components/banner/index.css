@@ -1,0 +1,21 @@
+.components-banner {
+  & .list {
+    overflow: hidden;
+    background-color: var(--mainColor);
+  }
+
+  & .nav {
+    list-style: none;
+  }
+  & .nav__item {
+    float: left;
+    height: var(--booksUnit);
+    width: var(--listWidth);
+    line-height: var(--booksUnit);
+    background-color: var(--mainColor);
+    list-style: none;
+  }
+  & .nav__item--active {
+    color: bisque;
+  }
+}
